@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <time.h>
+#include <malloc.h>
+#include <stdlib.h>
+#define MAX 100000
+
+void init(int *x, int y) {
+    int i;
+    for (i=0; i<y; i++)
+        x[i] = rand()% 1000;
+}
+
+void insertionsort(int *x, int y)
+{
+    int i,j,temp;
+    for (i = 1 ; i <= y - 1; i++)
+    {
+	    j = i;
+            while ( j > 0 && x[j-1] >x[j])
+            {
+                temp     = x[j];
+                x[j]   = x[j-1];
+                x[j-1] = temp;
+                j--;
+            }
+    }
+}
+
+void selectionsort(int *x , int y)
+{
+    int i,j,position, swap;
+    for(i = 0; i < y - 1; i++)
+    {
+        position=i;
+        for(j = i + 1; j < y; j++)
+    {
+        if(x[position] > x[j])
+        position=j;
+    }
+        if(position != i)
+        {
+            swap=x[i];
+            x[i]=x[position];
+            x[position]=swap;
+        }
+    }
+
+}
+
+void bubblesort(int *x, int y)
+{
+    int i,j,swap;
+    for(i=0;i<y;i++)
+    {
+        for(j=0;j<y-i-1;j++)
+        {
+            if(x[j]>x[j+1])
+            {
+                swap=x[j];
+                x[j]=x[j+1];
+                 x[j+1]=swap;
+            }
+        }
+    }
+
+}
+
+int main()
+{
+    int y, x[MAX], i;
+
+    scanf("%d",&y);
+
+
+ clock_t t,t1,t2;
+init(x,y);
+ t = clock();
+
+    insertionsort(x,y);
+
+ t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+printf("\nSearch took %f seconds to execute \n", time_taken);
+
+
+ t1 = clock();
+
+    selectionsort(x,y);
+
+  t1 = clock() - t1;
+     time_taken = ((double)t1)/CLOCKS_PER_SEC;
+printf("\nSearch took %f seconds to execute \n", time_taken);
+
+   t2 = clock();
+
+    bubblesort(x,y);
+
+  t2 = clock() - t2;
+     time_taken = ((double)t2)/CLOCKS_PER_SEC;
+printf("\nSearch took %f seconds to execute \n", time_taken);
+
+
+}
